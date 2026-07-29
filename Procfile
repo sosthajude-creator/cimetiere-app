@@ -1,1 +1,1 @@
-web: python manage.py migrate --run-syncdb --noinput && python manage.py migrate --fake-initial && gunicorn config.wsgi:application
+   web: python manage.py migrate --noinput && gunicorn config.wsgi:application
