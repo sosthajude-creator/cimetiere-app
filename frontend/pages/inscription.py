@@ -319,7 +319,7 @@ class InscriptionPage:
                         "longitude_cimetiere": lng,
                         "superficie_cimetiere": superficie,
                     },
-                    timeout=15,
+                    timeout=60,  # ✅ CORRIGÉ : 15 → 60
                 )
             else:
                 if self.role_selectionne in ['agent', 'secretariat'] and not self.cimetiere_dropdown.value:
@@ -339,7 +339,7 @@ class InscriptionPage:
                         "role": self.role_selectionne,
                         "cimetiere_id": self.cimetiere_dropdown.value if self.role_selectionne in ['agent', 'secretariat'] else None,
                     },
-                    timeout=15,
+                    timeout=60,  # ✅ CORRIGÉ : 15 → 60
                 )
             data = response.json()
             if "error" in data:
