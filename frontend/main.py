@@ -10,7 +10,7 @@ from pages.concessions import ConcessionsPage
 from pages.exhumations import ExhumationsPage
 from pages.nouveau_cimetiere import NouveauCimetierePage
 
-API_URL = "http://127.0.0.1:8000/api"
+API_URL = "https://cimetiere-app.onrender.com"
 
 def main(page: ft.Page):
     page.title = "Gestion de Cimetière"
