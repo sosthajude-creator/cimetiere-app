@@ -20,9 +20,9 @@ api.add_router("/caveaux", caveaux_router)
 api.add_router("/reservations", reservations_router)
 api.add_router("/finances", finances_router)
 api.add_router("/notifications", notifications_router)
-api.add_router("/etablissements",etablissements_router)
+api.add_router("/etablissements", etablissements_router)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', api.urls),
+    path('', api.urls),  # ✅ Changé de 'api/' à '' (racine)
 ]
