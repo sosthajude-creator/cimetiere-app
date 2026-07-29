@@ -73,7 +73,7 @@ class LoginPage:
         )
 
         self.renvoyer_btn = ft.TextButton(
-            "🔄 Renvoyer le code MFA",
+            " Renvoyer le code MFA",
             style=ft.ButtonStyle(color="#1B5E20", bgcolor="#E8F5E9", padding=ft.padding.symmetric(horizontal=20, vertical=10)),
             on_click=self.handle_renvoyer_code,
             visible=False,
@@ -102,11 +102,24 @@ class LoginPage:
             return
         
         try:
+            self.message.value = "⏳ Connexion en cours (le serveur peut mettre 30-50 secondes à répondre)..."
+            self.message.color = "#FF9800"
+            self.page.update()
+            
             response = httpx.post(
                 self.api_url + "/auth/login",
                 json={"email": self.email_field.value, "password": self.password_field.value},
-                timeout=30,
+                timeout=60,
             )
+            
+            # ✅ Vérifie si la réponse est du JSON
+            content_type = response.headers.get("content-type", "")
+            if "application/json" not in content_type:
+                self.message.value = "⏳ Le serveur est en train de se réveiller. Réessaie dans 30 secondes."
+                self.message.color = "#FF9800"
+                self.page.update()
+                return
+            
             data = response.json()
             if "error" in data:
                 self.message.value = data["error"]
@@ -117,7 +130,7 @@ class LoginPage:
                 self.compte_rebours_text.visible = False
                 self.login_btn.visible = True
             else:
-                self.message.value = "✅ Code MFA envoye par email ! Verifiez votre boite de reception."
+                self.message.value = "✅ Code MFA envoyé par email ! Vérifiez votre boîte de réception."
                 self.message.color = "#1B5E20"
                 self.mfa_field.visible = True
                 self.mfa_btn.visible = True
@@ -151,7 +164,7 @@ class LoginPage:
             response = httpx.post(
                 self.api_url + "/auth/verify-mfa",
                 json={"email": self.page.session_data.get("email"), "code": self.mfa_field.value},
-                timeout=30,
+                timeout=60,
             )
             data = response.json()
             if "error" in data:
@@ -192,7 +205,7 @@ class LoginPage:
                     "email": self.page.session_data.get("email"),
                     "password": self.password_field.value,
                 },
-                timeout=30,
+                timeout=60,
             )
             data = response.json()
 
