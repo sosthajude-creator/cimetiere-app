@@ -1,4 +1,5 @@
 import flet as ft
+import os
 from pages.login import LoginPage
 from pages.dashboard import DashboardPage
 from pages.carte import CartePage
@@ -11,6 +12,7 @@ from pages.exhumations import ExhumationsPage
 from pages.nouveau_cimetiere import NouveauCimetierePage
 
 API_URL = "https://cimetiere-app.onrender.com"
+port = int(os.environ.get("PORT", 8080))
 
 def main(page: ft.Page):
     page.title = "Gestion de Cimetière"
@@ -63,4 +65,4 @@ def main(page: ft.Page):
     page.on_view_pop = view_pop
     page.go("/login")
 
-ft.app(target=main, view=ft.WEB_BROWSER, port=8080)
+ft.app(target=main, view=ft.WEB_BROWSER, port=port)
