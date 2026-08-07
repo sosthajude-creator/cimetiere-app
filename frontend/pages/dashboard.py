@@ -128,7 +128,7 @@ class DashboardPage:
     def menu_item(self, texte, route, selected=False):
         def on_click(e):
             self.page.go(route)
-        bgcolor = ft.colors.with_opacity(0.2, "white") if selected else None
+        bgcolor = ft.Colors.with_opacity(0.2, "white") if selected else None
         return ft.Container(
             padding=ft.padding.symmetric(horizontal=20, vertical=12),
             border_radius=10,
@@ -163,7 +163,7 @@ class DashboardPage:
                                 ft.Container(
                                     width=65,
                                     height=65,
-                                    bgcolor=ft.colors.with_opacity(0.2, "white"),
+                                    bgcolor=ft.Colors.with_opacity(0.2, "white"),
                                     border_radius=32,
                                     alignment=ft.alignment.center,
                                     content=ft.Text("🏛️", size=32),
@@ -179,7 +179,7 @@ class DashboardPage:
                                             weight=ft.FontWeight.BOLD,
                                         ),
                                         ft.IconButton(
-                                            icon=ft.icons.DARK_MODE if not self.is_dark else ft.icons.LIGHT_MODE,
+                                            icon=ft.Icons.DARK_MODE if not self.is_dark else ft.Icons.LIGHT_MODE,
                                             icon_color="white",
                                             tooltip="Changer le thème",
                                             on_click=self.toggle_theme,
@@ -188,18 +188,18 @@ class DashboardPage:
                                 ),
                                 ft.Text(
                                     "République du Congo",
-                                    color=ft.colors.with_opacity(0.6, "white"),
+                                    color=ft.Colors.with_opacity(0.6, "white"),
                                     size=11,
                                     text_align=ft.TextAlign.CENTER,
                                 ),
                             ],
                         ),
                     ),
-                    ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                    ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                     ft.Container(height=8),
                     ft.Container(
                         padding=10,
-                        bgcolor=ft.colors.with_opacity(0.15, "white"),
+                        bgcolor=ft.Colors.with_opacity(0.15, "white"),
                         border_radius=10,
                         content=ft.Column(
                             spacing=3,
@@ -212,27 +212,27 @@ class DashboardPage:
                                 ),
                                 ft.Text(
                                     user.get('role', '').upper(),
-                                    color=ft.colors.with_opacity(0.7, "white"),
+                                    color=ft.Colors.with_opacity(0.7, "white"),
                                     size=11,
                                 ),
                             ],
                         ),
                     ),
                     ft.Container(height=15),
-                    ft.Text("MENU PRINCIPAL", color=ft.colors.with_opacity(0.5, "white"), size=10),
+                    ft.Text("MENU PRINCIPAL", color=ft.Colors.with_opacity(0.5, "white"), size=10),
                     ft.Container(height=5),
                     self.menu_item("🏠  Tableau de bord", "/dashboard", selected=True),
                     self.menu_item("🗺️  Carte des caveaux", "/carte"),
                     self.menu_item("📋  Réservations", "/reservations"),
                     self.menu_item("💰  Paiements", "/paiement"),
                     ft.Container(height=10),
-                    ft.Text("ADMINISTRATION", color=ft.colors.with_opacity(0.5, "white"), size=10),
+                    ft.Text("ADMINISTRATION", color=ft.Colors.with_opacity(0.5, "white"), size=10),
                     ft.Container(height=5),
                     self.menu_item("👥  Utilisateurs", "/utilisateurs"),
                     self.menu_item("📜  Concessions", "/concessions"),
                     self.menu_item("⚰️  Exhumations", "/exhumations"),
                     ft.Container(expand=True),
-                    ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                    ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                     ft.Container(
                         padding=ft.padding.symmetric(horizontal=20, vertical=12),
                         border_radius=10,
@@ -269,7 +269,7 @@ class DashboardPage:
             shadow=ft.BoxShadow(
                 spread_radius=0,
                 blur_radius=10,
-                color=ft.colors.with_opacity(0.08, "black"),
+                color=ft.Colors.with_opacity(0.08, "black"),
                 offset=ft.Offset(0, 4),
             ),
             content=ft.Column(
@@ -282,7 +282,7 @@ class DashboardPage:
                             ft.Container(
                                 width=35,
                                 height=35,
-                                bgcolor=ft.colors.with_opacity(0.15, couleur),
+                                bgcolor=ft.Colors.with_opacity(0.15, couleur),
                                 border_radius=10,
                                 alignment=ft.alignment.center,
                                 content=ft.Text(emoji, size=18),
@@ -319,7 +319,7 @@ class DashboardPage:
                 ),
                 ft.ProgressBar(
                     value=pourcentage / 100,
-                    bgcolor=ft.colors.with_opacity(0.2, couleur),
+                    bgcolor=ft.Colors.with_opacity(0.2, couleur),
                     color=couleur,
                     height=12,
                 ),
@@ -344,7 +344,7 @@ class DashboardPage:
                 border=ft.border.all(2, "#2196F3"),
                 content=ft.Row(
                     controls=[
-                        ft.Icon(ft.icons.VISIBILITY, color="#1565C0"),
+                        ft.Icon(ft.Icons.VISIBILITY, color="#1565C0"),
                         ft.Text(
                             "👤 Vous visualisez les statistiques de tous les cimetières",
                             size=13,
@@ -364,7 +364,7 @@ class DashboardPage:
                 border=ft.border.all(2, "#1B5E20"),
                 content=ft.Row(
                     controls=[
-                        ft.Icon(ft.icons.PARK, color="#1B5E20"),
+                        ft.Icon(ft.Icons.PARK, color="#1B5E20"),
                         ft.Text(
                             f"🔒 Statistiques du cimetière : {nom_cim}",
                             size=13,
@@ -468,7 +468,7 @@ class DashboardPage:
                     shadow=ft.BoxShadow(
                         spread_radius=0,
                         blur_radius=10,
-                        color=ft.colors.with_opacity(0.08, "black"),
+                        color=ft.Colors.with_opacity(0.08, "black"),
                         offset=ft.Offset(0, 4),
                     ),
                     content=ft.Column(
@@ -517,7 +517,7 @@ class DashboardPage:
                     shadow=ft.BoxShadow(
                         spread_radius=0,
                         blur_radius=10,
-                        color=ft.colors.with_opacity(0.08, "black"),
+                        color=ft.Colors.with_opacity(0.08, "black"),
                         offset=ft.Offset(0, 4),
                     ),
                     content=ft.Column(
@@ -547,7 +547,7 @@ class DashboardPage:
                             ),
                             ft.ProgressBar(
                                 value=stats.get("taux_occupation", 0) / 100,
-                                bgcolor=ft.colors.with_opacity(0.15, c["primary"]),
+                                bgcolor=ft.Colors.with_opacity(0.15, c["primary"]),
                                 color=c["primary"],
                                 height=18,
                             ),

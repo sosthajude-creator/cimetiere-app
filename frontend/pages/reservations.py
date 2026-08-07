@@ -200,7 +200,7 @@ class ReservationsPage:
             bgcolor="white",
             border_radius=12,
             border=ft.border.all(2, couleur),
-            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.colors.with_opacity(0.1, "black")),
+            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.Colors.with_opacity(0.1, "black")),
             content=ft.Column(controls=card_controls, spacing=8),
         )
 
@@ -221,7 +221,7 @@ class ReservationsPage:
                 ft.Container(
                     padding=ft.padding.symmetric(horizontal=20, vertical=12),
                     border_radius=10,
-                    bgcolor=ft.colors.with_opacity(0.2, "white") if is_active else None,
+                    bgcolor=ft.Colors.with_opacity(0.2, "white") if is_active else None,
                     on_click=lambda e, r=route: self.page.go(r),
                     content=ft.Text(texte, color="white", size=14, weight=ft.FontWeight.BOLD if is_active else ft.FontWeight.NORMAL),
                 )
@@ -236,20 +236,20 @@ class ReservationsPage:
                     content=ft.Column(
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         controls=[
-                            ft.Container(width=65, height=65, bgcolor=ft.colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
+                            ft.Container(width=65, height=65, bgcolor=ft.Colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
                             ft.Container(height=8),
                             ft.Text("Gestion Cimetiere", color="white", size=15, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
-                            ft.Text("Republique du Congo", color=ft.colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
+                            ft.Text("Republique du Congo", color=ft.Colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
                         ],
                     ),
                 ),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(height=10),
-                ft.Text("MENU PRINCIPAL", color=ft.colors.with_opacity(0.5, "white"), size=10),
+                ft.Text("MENU PRINCIPAL", color=ft.Colors.with_opacity(0.5, "white"), size=10),
                 ft.Container(height=5),
             ] + menu_controls + [
                 ft.Container(height=10),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=self.handle_logout, content=ft.Text("🚪  Deconnexion", color="#FF6B6B", size=14)),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/concessions"), content=ft.Text("📜  Concessions", color="white", size=14)),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/exhumations"), content=ft.Text("⚰️  Exhumations", color="white", size=14)),
@@ -318,7 +318,7 @@ class ReservationsPage:
                         content=ft.Row(
                             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                             controls=[
-                                ft.Row(controls=[ft.Icon(ft.icons.PARK, color="#1B5E20"), ft.Text(f"Cimetiere selectionne : {nom_cim}", size=14, weight=ft.FontWeight.BOLD, color="#1B5E20")]),
+                                ft.Row(controls=[ft.Icon(ft.Icons.PARK, color="#1B5E20"), ft.Text(f"Cimetiere selectionne : {nom_cim}", size=14, weight=ft.FontWeight.BOLD, color="#1B5E20")]),
                                 ft.TextButton("✕ Changer de cimetiere", style=ft.ButtonStyle(color="#F44336"), on_click=lambda e: self.changer_cimetiere()),
                             ],
                         ),
@@ -334,7 +334,7 @@ class ReservationsPage:
                         border=ft.border.all(2, "#2196F3"),
                         content=ft.Row(
                             controls=[
-                                ft.Icon(ft.icons.VISIBILITY, color="#1565C0"),
+                                ft.Icon(ft.Icons.VISIBILITY, color="#1565C0"),
                                 ft.Text(" Vous pouvez réserver dans n'importe quel cimetière", size=13, weight=ft.FontWeight.BOLD, color="#1565C0"),
                             ],
                         ),
@@ -351,7 +351,7 @@ class ReservationsPage:
                     border=ft.border.all(2, "#1B5E20"),
                     content=ft.Row(
                         controls=[
-                            ft.Icon(ft.icons.PARK, color="#1B5E20"),
+                            ft.Icon(ft.Icons.PARK, color="#1B5E20"),
                             ft.Text(f"🔒 Cimetière : {nom_cim} — Réservations limitées à ce cimetière", size=13, weight=ft.FontWeight.BOLD, color="#1B5E20"),
                         ],
                     ),
@@ -399,7 +399,7 @@ class ReservationsPage:
                                         padding=25,
                                         bgcolor=c["card"],
                                         border_radius=15,
-                                        shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.colors.with_opacity(0.08, "black")),
+                                        shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.Colors.with_opacity(0.08, "black")),
                                         content=ft.Column(spacing=15, controls=form_controls),
                                     ),
                                     ft.Container(height=20),

@@ -85,12 +85,12 @@ class CartePage:
             contenu = [
                 ft.Text("🏛️ " + infos.get("nom", ""), size=20, weight=ft.FontWeight.BOLD, color="#1B5E20"),
                 ft.Divider(),
-                ft.Row([ft.Icon(ft.icons.LOCATION_ON, color="#1B5E20"), ft.Text(infos.get("adresse", ""), size=13)], spacing=8),
-                ft.Row([ft.Icon(ft.icons.EMAIL, color="#1B5E20"), ft.Text(infos.get("email", ""), size=13)], spacing=8),
-                ft.Row([ft.Icon(ft.icons.PERSON, color="#1B5E20"), ft.Text("Proprietaire : " + proprio_txt, size=13)], spacing=8),
-                ft.Row([ft.Icon(ft.icons.SQUARE_FOOT, color="#1B5E20"), ft.Text(f"Superficie : {infos.get('superficie', 0)} m²", size=13)], spacing=8),
-                ft.Row([ft.Icon(ft.icons.PARK, color="#1B5E20"), ft.Text(f"{infos.get('total_zones', 0)} zone(s)", size=13)], spacing=8),
-                ft.Row([ft.Icon(ft.icons.CONTROL_POINT, color="#1B5E20"), ft.Text(f"{infos.get('total_caveaux', 0)} caveau(x)", size=13)], spacing=8),
+                ft.Row([ft.Icon(ft.Icons.LOCATION_ON, color="#1B5E20"), ft.Text(infos.get("adresse", ""), size=13)], spacing=8),
+                ft.Row([ft.Icon(ft.Icons.EMAIL, color="#1B5E20"), ft.Text(infos.get("email", ""), size=13)], spacing=8),
+                ft.Row([ft.Icon(ft.Icons.PERSON, color="#1B5E20"), ft.Text("Proprietaire : " + proprio_txt, size=13)], spacing=8),
+                ft.Row([ft.Icon(ft.Icons.SQUARE_FOOT, color="#1B5E20"), ft.Text(f"Superficie : {infos.get('superficie', 0)} m²", size=13)], spacing=8),
+                ft.Row([ft.Icon(ft.Icons.PARK, color="#1B5E20"), ft.Text(f"{infos.get('total_zones', 0)} zone(s)", size=13)], spacing=8),
+                ft.Row([ft.Icon(ft.Icons.CONTROL_POINT, color="#1B5E20"), ft.Text(f"{infos.get('total_caveaux', 0)} caveau(x)", size=13)], spacing=8),
                 ft.Container(height=15),
                 ft.Text(" Caveaux disponibles pour reservation", size=14, weight=ft.FontWeight.BOLD, color="#1B5E20"),
             ]
@@ -371,7 +371,7 @@ class CartePage:
             border_radius=8,
             content=ft.Row(
                 controls=[
-                    ft.Icon(ft.icons.INFO_OUTLINE, color="#1976D2", size=16),
+                    ft.Icon(ft.Icons.INFO_OUTLINE, color="#1976D2", size=16),
                     ft.Text(
                         f" Actuellement : {len(zones)} zone(s) et {len(blocs)} bloc(s) créé(s)",
                         size=12,
@@ -612,7 +612,7 @@ class CartePage:
         if self.role == "client":
             info_role = ft.Container(
                 padding=15, bgcolor="#E3F2FD", border_radius=12, border=ft.border.all(2, "#2196F3"),
-                content=ft.Row(controls=[ft.Icon(ft.icons.VISIBILITY, color="#1565C0"), ft.Text("👤 Vous visualisez tous les caveaux de tous les cimetieres disponibles", size=13, weight=ft.FontWeight.BOLD, color="#1565C0")]),
+                content=ft.Row(controls=[ft.Icon(ft.Icons.VISIBILITY, color="#1565C0"), ft.Text("👤 Vous visualisez tous les caveaux de tous les cimetieres disponibles", size=13, weight=ft.FontWeight.BOLD, color="#1565C0")]),
             )
         elif self.role in ["admin", "agent", "secretariat"] and self.cimetiere_id:
             mon_cim = self.get_mon_cimetiere()
@@ -623,7 +623,7 @@ class CartePage:
                 content=ft.Column(
                     spacing=5,
                     controls=[
-                        ft.Row(controls=[ft.Icon(ft.icons.PARK, color="#1B5E20"), ft.Text(f"🔒 Cimetiere : {nom_cim}", size=13, weight=ft.FontWeight.BOLD, color="#1B5E20")]),
+                        ft.Row(controls=[ft.Icon(ft.Icons.PARK, color="#1B5E20"), ft.Text(f"🔒 Cimetiere : {nom_cim}", size=13, weight=ft.FontWeight.BOLD, color="#1B5E20")]),
                         ft.Text(f"📐 Superficie : {superficie} m² | 📍 {len(self.caveaux)} caveau(x)", size=12, color="#555555"),
                     ],
                 ),

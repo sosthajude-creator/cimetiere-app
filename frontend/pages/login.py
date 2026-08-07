@@ -68,7 +68,7 @@ class LoginPage:
             alignment=ft.alignment.center,
             on_click=self.handle_mfa,
             visible=False,
-            shadow=ft.BoxShadow(spread_radius=1, blur_radius=10, color=ft.colors.with_opacity(0.3, "#1B5E20"), offset=ft.Offset(0, 4)),
+            shadow=ft.BoxShadow(spread_radius=1, blur_radius=10, color=ft.Colors.with_opacity(0.3, "#1B5E20"), offset=ft.Offset(0, 4)),
             content=ft.Text("Verifier le code MFA", color="white", size=16, weight=ft.FontWeight.BOLD),
         )
 
@@ -282,7 +282,7 @@ class LoginPage:
                                     ft.Container(
                                         width=120,
                                         height=120,
-                                        bgcolor=ft.colors.with_opacity(0.2, "white"),
+                                        bgcolor=ft.Colors.with_opacity(0.2, "white"),
                                         border_radius=60,
                                         alignment=ft.alignment.center,
                                         content=ft.Text("🏛️", size=60),
@@ -297,14 +297,14 @@ class LoginPage:
                                     ft.Text(
                                         "Republique du Congo",
                                         size=16,
-                                        color=ft.colors.with_opacity(0.8, "white"),
+                                        color=ft.Colors.with_opacity(0.8, "white"),
                                         text_align=ft.TextAlign.CENTER,
                                     ),
-                                    ft.Divider(color=ft.colors.with_opacity(0.3, "white"), thickness=1),
+                                    ft.Divider(color=ft.Colors.with_opacity(0.3, "white"), thickness=1),
                                     ft.Text(
                                         "Systeme de gestion\ndes espaces funeraires",
                                         size=13,
-                                        color=ft.colors.with_opacity(0.6, "white"),
+                                        color=ft.Colors.with_opacity(0.6, "white"),
                                         text_align=ft.TextAlign.CENTER,
                                     ),
                                 ],

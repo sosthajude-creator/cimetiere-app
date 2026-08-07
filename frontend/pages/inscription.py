@@ -371,10 +371,10 @@ class InscriptionPage:
                                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                 spacing=20,
                                 controls=[
-                                    ft.Container(width=120, height=120, bgcolor=ft.colors.with_opacity(0.2, "white"), border_radius=60, alignment=ft.alignment.center, content=ft.Text("️", size=60)),
+                                    ft.Container(width=120, height=120, bgcolor=ft.Colors.with_opacity(0.2, "white"), border_radius=60, alignment=ft.alignment.center, content=ft.Text("️", size=60)),
                                     ft.Text("Rejoignez-nous !", size=28, weight=ft.FontWeight.BOLD, color="white", text_align=ft.TextAlign.CENTER),
-                                    ft.Text("Creez votre compte pour\nacceder aux services", size=14, color=ft.colors.with_opacity(0.8, "white"), text_align=ft.TextAlign.CENTER),
-                                    ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                                    ft.Text("Creez votre compte pour\nacceder aux services", size=14, color=ft.Colors.with_opacity(0.8, "white"), text_align=ft.TextAlign.CENTER),
+                                    ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                                     ft.Column(
                                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                         spacing=10,
@@ -419,7 +419,7 @@ class InscriptionPage:
                                         border_radius=30,
                                         alignment=ft.alignment.center,
                                         on_click=self.handle_inscription,
-                                        shadow=ft.BoxShadow(spread_radius=1, blur_radius=10, color=ft.colors.with_opacity(0.3, "#1B5E20"), offset=ft.Offset(0, 4)),
+                                        shadow=ft.BoxShadow(spread_radius=1, blur_radius=10, color=ft.Colors.with_opacity(0.3, "#1B5E20"), offset=ft.Offset(0, 4)),
                                         content=ft.Text("Creer mon compte", color="white", size=16, weight=ft.FontWeight.BOLD),
                                     ),
                                     ft.Row(
