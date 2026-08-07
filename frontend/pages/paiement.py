@@ -1,6 +1,10 @@
 import flet as ft
 import httpx
 import webbrowser
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import valider_telephone_congo, valider_montant
 
 
 class PaiementPage:
@@ -12,7 +16,6 @@ class PaiementPage:
         self.role = self.user.get("role", "")
         self.cimetiere_id = self.user.get("cimetiere_id")
         
-        # ✅ Client peut payer SES factures, Admin/Secretariat peuvent tout faire
         self.can_create_payment = self.role in ["superadmin", "secretariat", "admin", "client"]
         
         self.facture_id = ft.TextField(label="ID de la facture", border_radius=10, bgcolor="white", read_only=(self.role == "client"))
@@ -30,7 +33,7 @@ class PaiementPage:
             ],
             value="mobile_money", on_change=self.on_canal_change,
         )
-        self.numero_telephone = ft.TextField(label="Numero de telephone", border_radius=10, bgcolor="white", visible=True)
+        self.numero_telephone = ft.TextField(label="Numero de telephone", border_radius=10, bgcolor="white", visible=True, keyboard_type=ft.KeyboardType.PHONE)
         self.numero_carte = ft.TextField(label="Numero de carte", border_radius=10, bgcolor="white", visible=False, password=True)
         self.message = ft.Text("", size=13)
         self.loading = ft.ProgressRing(visible=False, color="#1B5E20")
@@ -49,19 +52,15 @@ class PaiementPage:
         self.page.update()
 
     def get_factures(self, include_payees=False):
-        """Récupère les factures selon le rôle"""
         try:
             url = f"{self.api_url}/finances/"
             params = {}
             
-            # ✅ Client voit seulement ses factures
             if self.role == "client":
                 params["client_email"] = self.user.get('email')
-            # ✅ Admin/Agent/Secretariat voient toutes les factures de leur cimetière
             elif self.role in ["admin", "agent", "secretariat"] and self.cimetiere_id:
                 params["cimetiere_id"] = self.cimetiere_id
             
-            # ✅ Option pour exclure les factures payées
             if not include_payees:
                 params["include_payees"] = "false"
             
@@ -71,7 +70,6 @@ class PaiementPage:
             return []
 
     def pre_remplir_paiement(self, facture_id, montant_restant):
-        """Pré-remplit le formulaire avec les infos de la facture"""
         self.facture_id.value = facture_id
         self.montant.value = str(montant_restant)
         self.message.value = ""
@@ -84,6 +82,21 @@ class PaiementPage:
             self.message.color = "red"
             self.page.update()
             return
+        
+        # ✅ Validation montant
+        if not valider_montant(self.montant.value):
+            self.message.value = "⚠️ Montant invalide (doit etre superieur a 0)"
+            self.message.color = "red"
+            self.page.update()
+            return
+        
+        # ✅ Validation téléphone (si visible)
+        if self.numero_telephone.visible and self.numero_telephone.value:
+            if not valider_telephone_congo(self.numero_telephone.value):
+                self.message.value = "⚠️ Numero de telephone invalide. Format : (+242) XXXXXXXXX"
+                self.message.color = "red"
+                self.page.update()
+                return
         
         self.loading.visible = True
         self.message.value = "⏳ Traitement du paiement en cours..."
@@ -119,17 +132,15 @@ class PaiementPage:
                         ft.Divider(),
                         ft.Text(f"✅ {data.get('message')}", size=13),
                         ft.Text(f" Reference : {data.get('reference')}", size=13, weight=ft.FontWeight.BOLD),
-                        ft.Text(f"💰 Montant paye : {data.get('montant_paye')} FCFA", size=13),
+                        ft.Text(f" Montant paye : {data.get('montant_paye')} FCFA", size=13),
                         ft.Text(f" Reste a payer : {data.get('montant_restant')} FCFA", size=13),
                         ft.Text(f"📋 Statut : {data.get('statut_facture', '').upper()}", size=13, color="#1B5E20", weight=ft.FontWeight.BOLD),
                     ]))
                 ]
                 
-                # ✅ Vider le formulaire
                 self.facture_id.value = ""
                 self.montant.value = ""
                 
-                # ✅ Recharger la page après 2 secondes pour voir les mises à jour
                 import threading
                 import time
                 def reload_after_delay():
@@ -167,13 +178,10 @@ class PaiementPage:
         emoji = {"en_attente": "", "partielle": "📊", "payee": "✅"}
         couleur = statut_couleurs.get(f.get("statut"), "#9E9E9E")
         
-        # ✅ Boutons selon le statut et le rôle
         boutons = []
         
-        # Télécharger PDF (tout le monde)
         boutons.append(ft.FilledButton("📄 Telecharger PDF", on_click=lambda e, fid=f.get("id"): self.handle_telecharger_pdf(fid), style=ft.ButtonStyle(bgcolor="#1B5E20", color="white")))
         
-        # ✅ Bouton Payer (seulement si facture non payée ET client ou admin)
         if f.get("statut") in ["en_attente", "partielle"] and self.can_create_payment:
             boutons.append(
                 ft.FilledButton(
@@ -206,7 +214,7 @@ class PaiementPage:
             width=230, bgcolor="#1B5E20", padding=20,
             content=ft.Column(controls=[
                 ft.Container(padding=ft.padding.only(bottom=15), content=ft.Column(horizontal_alignment=ft.CrossAxisAlignment.CENTER, controls=[
-                    ft.Container(width=65, height=65, bgcolor=ft.colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
+                    ft.Container(width=65, height=65, bgcolor=ft.colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("️", size=32)),
                     ft.Container(height=8),
                     ft.Text("Gestion Cimetiere", color="white", size=15, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
                     ft.Text("Republique du Congo", color=ft.colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
@@ -222,8 +230,8 @@ class PaiementPage:
                 ft.Container(height=10),
                 ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=self.handle_logout, content=ft.Text("  Deconnexion", color="#FF6B6B", size=14)),
-                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/concessions"), content=ft.Text("📜  Concessions", color="white", size=14)),
-                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/exhumations"), content=ft.Text("⚰️  Exhumations", color="white", size=14)),
+                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/concessions"), content=ft.Text("  Concessions", color="white", size=14)),
+                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/exhumations"), content=ft.Text("️  Exhumations", color="white", size=14)),
             ]),
         )
 
@@ -234,9 +242,7 @@ class PaiementPage:
     def build(self):
         c = self.get_colors()
         
-        # ✅ Récupérer les factures NON payées pour le formulaire
         factures_non_payees = self.get_factures(include_payees=False)
-        # ✅ Récupérer TOUTES les factures pour l'affichage
         toutes_factures = self.get_factures(include_payees=True)
         
         if toutes_factures:
@@ -244,7 +250,6 @@ class PaiementPage:
         else:
             liste_factures = [ft.Container(padding=40, alignment=ft.alignment.center, content=ft.Column(horizontal_alignment=ft.CrossAxisAlignment.CENTER, controls=[ft.Text("💰", size=50), ft.Text("Aucune facture disponible", size=16, color="#999999")]))]
         
-        # ✅ Formulaire de paiement (visible pour client ET admin/secretariat)
         formulaire = ft.Container(
             padding=25, bgcolor=c["card"], border_radius=15,
             shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.colors.with_opacity(0.08, "black")),

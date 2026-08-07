@@ -10,8 +10,19 @@ class ExhumationsPage:
         self.role = self.user.get("role", "")
         self.message = ft.Text("", size=13)
 
+        # ✅ Récupérer l'ID de la concession passé en paramètre d'URL (ex: /exhumations?concession=123)
+        preselected_concession = None
+        if "?concession=" in page.route:
+            preselected_concession = page.route.split("?concession=")[-1]
+
         # Champs formulaire
-        self.concession_id = ft.TextField(label="ID de la concession", border_radius=10, bgcolor="white")
+        self.concession_id = ft.TextField(
+            label="ID de la concession", 
+            border_radius=10, 
+            bgcolor="white",
+            value=preselected_concession,
+            read_only=True if preselected_concession else False  # ✅ Lecture seule si pré-rempli
+        )
         self.motif = ft.TextField(label="Motif de l'exhumation", border_radius=10, bgcolor="white", multiline=True, min_lines=3)
 
     def get_colors(self):
@@ -116,7 +127,7 @@ class ExhumationsPage:
                 ft.Container(
                     padding=ft.padding.symmetric(horizontal=20, vertical=12),
                     border_radius=10,
-                    bgcolor=ft.colors.with_opacity(0.2, "white") if is_active else None,
+                    bgcolor=ft.Colors.with_opacity(0.2, "white") if is_active else None,
                     on_click=lambda e, r=route: self.page.go(r),
                     content=ft.Text(texte, color="white", size=14, weight=ft.FontWeight.BOLD if is_active else ft.FontWeight.NORMAL),
                 )
@@ -131,23 +142,23 @@ class ExhumationsPage:
                     content=ft.Column(
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         controls=[
-                            ft.Container(width=65, height=65, bgcolor=ft.colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
+                            ft.Container(width=65, height=65, bgcolor=ft.Colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
                             ft.Container(height=8),
                             ft.Text("Gestion Cimetiere", color="white", size=15, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
-                            ft.Text("Republique du Congo", color=ft.colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
+                            ft.Text("Republique du Congo", color=ft.Colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
                         ],
                     ),
                 ),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(height=10),
-                ft.Text("MENU PRINCIPAL", color=ft.colors.with_opacity(0.5, "white"), size=10),
+                ft.Text("MENU PRINCIPAL", color=ft.Colors.with_opacity(0.5, "white"), size=10),
                 ft.Container(height=5),
             ] + menu_controls + [
                 ft.Container(height=10),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=self.handle_logout, content=ft.Text("🚪  Deconnexion", color="#FF6B6B", size=14)),
-                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/concessions"), content=ft.Text("  Concessions", color="white", size=14)),
-                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/exhumations"), content=ft.Text("️  Exhumations", color="white", size=14)),
+                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/concessions"), content=ft.Text("📜  Concessions", color="white", size=14)),
+                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, bgcolor=ft.Colors.with_opacity(0.2, "white"), content=ft.Text("⚰️  Exhumations", color="white", size=14, weight=ft.FontWeight.BOLD)),
             ]),
         )
         
@@ -211,7 +222,7 @@ class ExhumationsPage:
             bgcolor="white",
             border_radius=12,
             border=ft.border.all(2, couleur),
-            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.colors.with_opacity(0.1, "black")),
+            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.Colors.with_opacity(0.1, "black")),
             content=ft.Column(spacing=8, controls=card_controls),
         )
 
@@ -277,7 +288,7 @@ class ExhumationsPage:
                                         padding=25,
                                         bgcolor=c["card"],
                                         border_radius=15,
-                                        shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.colors.with_opacity(0.08, "black")),
+                                        shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.Colors.with_opacity(0.08, "black")),
                                         content=ft.Column(
                                             spacing=15,
                                             controls=[

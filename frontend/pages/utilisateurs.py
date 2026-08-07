@@ -153,7 +153,7 @@ class UtilisateursPage:
         is_active = u.get("is_active", True)
         return ft.Container(
             padding=15, margin=ft.margin.only(bottom=10), bgcolor="white", border_radius=12, border=ft.border.all(2, couleur),
-            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.colors.with_opacity(0.1, "black")),
+            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.Colors.with_opacity(0.1, "black")),
             content=ft.Row(alignment=ft.MainAxisAlignment.SPACE_BETWEEN, controls=[
                 ft.Column(spacing=4, controls=[
                     ft.Text(u.get("prenom", "") + " " + u.get("nom", ""), size=15, weight=ft.FontWeight.BOLD, color="#1B5E20"),
@@ -184,7 +184,7 @@ class UtilisateursPage:
                 ft.Container(
                     padding=ft.padding.symmetric(horizontal=20, vertical=12),
                     border_radius=10,
-                    bgcolor=ft.colors.with_opacity(0.2, "white") if is_active else None,
+                    bgcolor=ft.Colors.with_opacity(0.2, "white") if is_active else None,
                     on_click=lambda e, r=route: self.page.go(r),
                     content=ft.Text(texte, color="white", size=14, weight=ft.FontWeight.BOLD if is_active else ft.FontWeight.NORMAL),
                 )
@@ -199,20 +199,20 @@ class UtilisateursPage:
                     content=ft.Column(
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         controls=[
-                            ft.Container(width=65, height=65, bgcolor=ft.colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
+                            ft.Container(width=65, height=65, bgcolor=ft.Colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
                             ft.Container(height=8),
                             ft.Text("Gestion Cimetiere", color="white", size=15, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
-                            ft.Text("Republique du Congo", color=ft.colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
+                            ft.Text("Republique du Congo", color=ft.Colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
                         ],
                     ),
                 ),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(height=10),
-                ft.Text("MENU PRINCIPAL", color=ft.colors.with_opacity(0.5, "white"), size=10),
+                ft.Text("MENU PRINCIPAL", color=ft.Colors.with_opacity(0.5, "white"), size=10),
                 ft.Container(height=5),
             ] + menu_controls + [
                 ft.Container(height=10),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=self.handle_logout, content=ft.Text("🚪  Deconnexion", color="#FF6B6B", size=14)),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/concessions"), content=ft.Text("📜  Concessions", color="white", size=14)),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/exhumations"), content=ft.Text("⚰️  Exhumations", color="white", size=14)),
@@ -265,7 +265,7 @@ class UtilisateursPage:
             controls_content.append(ft.Container(height=20))
 
         if can_manage:
-            controls_content.append(ft.Container(padding=25, bgcolor=c["card"], border_radius=15, shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.colors.with_opacity(0.08, "black")), content=ft.Column(spacing=15, controls=[
+            controls_content.append(ft.Container(padding=25, bgcolor=c["card"], border_radius=15, shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.Colors.with_opacity(0.08, "black")), content=ft.Column(spacing=15, controls=[
                 ft.Text("➕ Ajouter un utilisateur", size=18, weight=ft.FontWeight.BOLD, color="#1B5E20"),
                 ft.Row(controls=[ft.Container(expand=True, content=self.nom), ft.Container(expand=True, content=self.prenom)], spacing=15),
                 ft.Row(controls=[ft.Container(expand=True, content=self.email), ft.Container(expand=True, content=self.telephone)], spacing=15),

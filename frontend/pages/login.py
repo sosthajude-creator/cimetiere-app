@@ -56,7 +56,7 @@ class LoginPage:
             border_radius=30,
             alignment=ft.alignment.center,
             on_click=self.handle_login,
-            shadow=ft.BoxShadow(spread_radius=1, blur_radius=10, color=ft.colors.with_opacity(0.3, "#1B5E20"), offset=ft.Offset(0, 4)),
+            shadow=ft.BoxShadow(spread_radius=1, blur_radius=10, color=ft.Colors.with_opacity(0.3, "#1B5E20"), offset=ft.Offset(0, 4)),
             content=ft.Text("Se connecter", color="white", size=16, weight=ft.FontWeight.BOLD),
         )
 

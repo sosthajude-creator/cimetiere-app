@@ -384,7 +384,7 @@ class CartePage:
         
         return ft.Container(
             padding=25, bgcolor=c["card"], border_radius=15,
-            shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.colors.with_opacity(0.08, "black")),
+            shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.Colors.with_opacity(0.08, "black")),
             content=ft.Column(spacing=15, controls=[
                 ft.Text("🏗️ Creer des zones, blocs et caveaux", size=18, weight=ft.FontWeight.BOLD, color="#1B5E20"),
                 info_zones_blocs,
@@ -555,21 +555,21 @@ class CartePage:
             width=230, bgcolor="#1B5E20", padding=20,
             content=ft.Column(controls=[
                 ft.Container(padding=ft.padding.only(bottom=15), content=ft.Column(horizontal_alignment=ft.CrossAxisAlignment.CENTER, controls=[
-                    ft.Container(width=65, height=65, bgcolor=ft.colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
+                    ft.Container(width=65, height=65, bgcolor=ft.Colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
                     ft.Container(height=8),
                     ft.Text("Gestion Cimetiere", color="white", size=15, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
-                    ft.Text("Republique du Congo", color=ft.colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
+                    ft.Text("Republique du Congo", color=ft.Colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
                 ])),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(height=10),
-                ft.Text("MENU PRINCIPAL", color=ft.colors.with_opacity(0.5, "white"), size=10),
+                ft.Text("MENU PRINCIPAL", color=ft.Colors.with_opacity(0.5, "white"), size=10),
                 ft.Container(height=5),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/dashboard"), content=ft.Text("🏠  Tableau de bord", color="white", size=14)),
-                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, bgcolor=ft.colors.with_opacity(0.2, "white"), content=ft.Text("🗺️  Carte des caveaux", color="white", size=14, weight=ft.FontWeight.BOLD)),
+                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, bgcolor=ft.Colors.with_opacity(0.2, "white"), content=ft.Text("🗺️  Carte des caveaux", color="white", size=14, weight=ft.FontWeight.BOLD)),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/reservations"), content=ft.Text("📋  Reservations", color="white", size=14)),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/paiement"), content=ft.Text("💰  Paiements", color="white", size=14)),
                 ft.Container(height=10),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=self.handle_logout, content=ft.Text("🚪  Deconnexion", color="#FF6B6B", size=14)),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/concessions"), content=ft.Text("📜  Concessions", color="white", size=14)),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/exhumations"), content=ft.Text("⚰️  Exhumations", color="white", size=14)),
@@ -590,7 +590,7 @@ class CartePage:
         return ft.Container(
             padding=15, margin=ft.margin.only(bottom=10), bgcolor="white", border_radius=12,
             border=ft.border.all(2, couleur),
-            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.colors.with_opacity(0.1, "black")),
+            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.Colors.with_opacity(0.1, "black")),
             content=ft.Column(spacing=8, controls=[
                 ft.Row(alignment=ft.MainAxisAlignment.SPACE_BETWEEN, controls=[
                     ft.Text(f"{emoji} Caveau N° {caveau.get('numero')}", size=15, weight=ft.FontWeight.BOLD, color="#1B5E20"),
@@ -658,7 +658,7 @@ class CartePage:
                     ft.Container(height=15),
                     self.build_formulaire_creation(c) if self.role in ["admin", "superadmin"] else ft.Container(),
                     ft.Container(height=15) if self.role in ["admin", "superadmin"] else ft.Container(),
-                    ft.Container(padding=20, bgcolor="white", border_radius=15, shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.colors.with_opacity(0.08, "black")), content=ft.Column(horizontal_alignment=ft.CrossAxisAlignment.CENTER, controls=[
+                    ft.Container(padding=20, bgcolor="white", border_radius=15, shadow=ft.BoxShadow(spread_radius=0, blur_radius=10, color=ft.Colors.with_opacity(0.08, "black")), content=ft.Column(horizontal_alignment=ft.CrossAxisAlignment.CENTER, controls=[
                         ft.Text("️  Carte Interactive", size=18, weight=ft.FontWeight.BOLD, color="#1B5E20"),
                         ft.Text("Cliquez sur un caveau pour voir les informations du cimetiere", size=12, color="#888888", text_align=ft.TextAlign.CENTER),
                         ft.Container(height=10),

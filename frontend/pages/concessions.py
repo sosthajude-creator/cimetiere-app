@@ -28,7 +28,6 @@ class ConcessionsPage:
         self.page.go("/login")
 
     def handle_renouveler(self, reservation_id):
-        # ✅ Ajout de l'appel API manquant
         try:
             response = httpx.put(
                 self.api_url + "/reservations/" + reservation_id + "/renouveler",
@@ -85,7 +84,7 @@ class ConcessionsPage:
                 ft.Container(
                     padding=ft.padding.symmetric(horizontal=20, vertical=12),
                     border_radius=10,
-                    bgcolor=ft.colors.with_opacity(0.2, "white") if is_active else None,
+                    bgcolor=ft.Colors.with_opacity(0.2, "white") if is_active else None,
                     on_click=lambda e, r=route: self.page.go(r),
                     content=ft.Text(texte, color="white", size=14, weight=ft.FontWeight.BOLD if is_active else ft.FontWeight.NORMAL),
                 )
@@ -100,23 +99,23 @@ class ConcessionsPage:
                     content=ft.Column(
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         controls=[
-                            ft.Container(width=65, height=65, bgcolor=ft.colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("️", size=32)),
+                            ft.Container(width=65, height=65, bgcolor=ft.Colors.with_opacity(0.2, "white"), border_radius=32, alignment=ft.alignment.center, content=ft.Text("🏛️", size=32)),
                             ft.Container(height=8),
                             ft.Text("Gestion Cimetiere", color="white", size=15, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
-                            ft.Text("Republique du Congo", color=ft.colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
+                            ft.Text("Republique du Congo", color=ft.Colors.with_opacity(0.6, "white"), size=11, text_align=ft.TextAlign.CENTER),
                         ],
                     ),
                 ),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(height=10),
-                ft.Text("MENU PRINCIPAL", color=ft.colors.with_opacity(0.5, "white"), size=10),
+                ft.Text("MENU PRINCIPAL", color=ft.Colors.with_opacity(0.5, "white"), size=10),
                 ft.Container(height=5),
             ] + menu_controls + [
                 ft.Container(height=10),
-                ft.Divider(color=ft.colors.with_opacity(0.3, "white")),
+                ft.Divider(color=ft.Colors.with_opacity(0.3, "white")),
                 ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=self.handle_logout, content=ft.Text("🚪  Deconnexion", color="#FF6B6B", size=14)),
-                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/concessions"), content=ft.Text("  Concessions", color="white", size=14)),
-                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/exhumations"), content=ft.Text("️  Exhumations", color="white", size=14)),
+                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, bgcolor=ft.Colors.with_opacity(0.2, "white"), content=ft.Text("📜  Concessions", color="white", size=14, weight=ft.FontWeight.BOLD)),
+                ft.Container(padding=ft.padding.symmetric(horizontal=20, vertical=12), border_radius=10, on_click=lambda e: self.page.go("/exhumations"), content=ft.Text("⚰️  Exhumations", color="white", size=14)),
             ]),
         )
 
@@ -126,16 +125,41 @@ class ConcessionsPage:
 
         actions = []
         if self.role in ["superadmin", "admin", "secretariat"]:
-            actions = [
-                ft.FilledButton(
-                    "Renouveler",
-                    on_click=lambda e, rid=c["reservation_id"]: self.handle_renouveler(rid),
-                ),
+            
+            # ✅ 1. Bouton Renouveler (SEULEMENT pour les concessions temporaires)
+            if c.get("type_concess") == "temporaire":
+                actions.append(
+                    ft.FilledButton(
+                        "🔄 Renouveler",
+                        on_click=lambda e, rid=c["reservation_id"]: self.handle_renouveler(rid),
+                        style=ft.ButtonStyle(bgcolor="#FF9800", color="white")
+                    )
+                )
+            
+            # ✅ 2. Bouton Exhumer (SEULEMENT si expirée OU perpétuelle)
+            # Le backend envoie maintenant "est_expiree": True/False
+            if c.get("est_expiree", False) or c.get("type_concess") == "perpetuelle":
+                actions.append(
+                    ft.OutlinedButton(
+                        "⚰️ Exhumer",
+                        on_click=lambda e, rid=c["reservation_id"]: self.page.go(f"/exhumations?concession={rid}"),
+                        style=ft.ButtonStyle(color="#F44336")
+                    )
+                )
+            else:
+                # Si ce n'est pas expiré, on affiche un petit texte informatif à la place
+                actions.append(
+                    ft.Text("Non expirée", size=11, color="#999999", italic=True)
+                )
+
+            # ✅ 3. Bouton Résilier (Toujours disponible pour l'admin)
+            actions.append(
                 ft.OutlinedButton(
-                    "Resilier",
+                    "🚫 Résilier",
                     on_click=lambda e, rid=c["reservation_id"]: self.handle_resilier(rid),
-                ),
-            ]
+                    style=ft.ButtonStyle(color="#9E9E9E")
+                )
+            )
 
         card_controls = [
             ft.Row(
@@ -165,7 +189,7 @@ class ConcessionsPage:
             bgcolor="white",
             border_radius=12,
             border=ft.border.all(2, type_couleur),
-            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.colors.with_opacity(0.1, "black")),
+            shadow=ft.BoxShadow(spread_radius=1, blur_radius=8, color=ft.Colors.with_opacity(0.1, "black")),
             content=ft.Column(spacing=8, controls=card_controls),
         )
 
@@ -183,7 +207,7 @@ class ConcessionsPage:
                     content=ft.Column(
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         controls=[
-                            ft.Text("", size=50),
+                            ft.Text("📜", size=50),
                             ft.Text("Aucune concession active", size=16, color="#999999"),
                             ft.Text("Les concessions apparaissent apres validation des reservations", size=13, color="#BBBBBB", text_align=ft.TextAlign.CENTER),
                         ],
