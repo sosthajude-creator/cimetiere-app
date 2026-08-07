@@ -65,4 +65,4 @@ def main(page: ft.Page):
     page.on_view_pop = view_pop
     page.go("/login")
 
-ft.app(target=main, view=ft.WEB_BROWSER, port=port, host="0.0.0.0")
+ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=port, host="0.0.0.0")
