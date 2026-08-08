@@ -85,7 +85,7 @@ Republique du Congo
         send_mail(
             subject=sujet,
             message=message,
-            from_email=f'Gestion Cimetiere <{settings.EMAIL_HOST_USER}>',
+            from_email=f'Gestion Cimetiere <{settings.DEFAULT_FROM_EMAIL,}>',
             recipient_list=[user_email],
             fail_silently=False,
         )
@@ -216,7 +216,7 @@ def register(request, data: UserCreateSchema):
                         send_mail(
                             subject='Nouvelle demande de poste - ' + cimetiere.nom,
                             message='Une nouvelle demande de poste (' + data.role + ') a ete soumise par ' + data.prenom + ' ' + data.nom + ' (' + data.email + ').',
-                            from_email=settings.EMAIL_HOST_USER,
+                            from_email=settings.DEFAULT_FROM_EMAIL,
                             recipient_list=[admin.email],
                             fail_silently=True,
                         )
@@ -328,7 +328,7 @@ def valider_user(request, user_id: str, statut: str):
                 send_mail(
                     subject='Votre compte a ete valide',
                     message='Bonjour ' + user.prenom + ',\n\nVotre compte a ete valide. Vous pouvez maintenant vous connecter.',
-                    from_email=settings.EMAIL_HOST_USER,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[user.email],
                     fail_silently=True,
                 )
